@@ -1,0 +1,27 @@
+service: memorise-words
+
+useDotenv: true
+
+plugins:
+  - 'serverless-plugin-typescript'
+  - serverless-plugin-optimize
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  region: ap-southeast-2
+  runtime: nodejs12.x
+  profile: ${self:custom.profiles.${sls:stage}}
+
+custom:
+  profiles:
+    dev: devProfile
+
+functions:
+  api:
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}
