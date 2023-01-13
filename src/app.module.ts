@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-
+import { WordModule } from './word/word.module';
+import { GroupModule } from './group/group.module';
+import { SetModule } from './set/set.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,12 +19,15 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true,
+      synchronize: false,
       logging: true,
       autoLoadEntities: true,
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
     }),
     UsersModule,
+    WordModule,
+    GroupModule,
+    SetModule,
   ],
   controllers: [],
   providers: [],
